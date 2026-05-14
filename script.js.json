@@ -1,0 +1,119 @@
+let books = [];
+let id = 1;
+
+// Add Book
+function addBook() {
+
+        let bookName = document.getElementById("bookName").value;
+            let authorName = document.getElementById("authorName").value;
+
+                if (bookName === "" || authorName === "") {
+                            alert("Please fill all fields");
+                                    return;
+                }
+
+                    let book = {
+                                id: id++,
+                                        name: bookName,
+                                                author: authorName,
+                                                        status: "Available"
+                    };
+
+                        books.push(book);
+
+                            displayBooks();
+
+                                document.getElementById("bookName").value = "";
+                                    document.getElementById("authorName").value = "";
+}
+
+// Display Books
+function displayBooks(filteredBooks = books) {
+
+        let bookList = document.getElementById("bookList");
+
+            bookList.innerHTML = "";
+
+                filteredBooks.forEach((book) => {
+
+                            let row = `
+                                        <tr>
+                                                        <td>${book.id}</td>
+                                                                        <td>${book.name}</td>
+                                                                                        <td>${book.author}</td>
+                                                                                                        <td>${book.status}</td>
+                                                                                                                        <td>
+                                                                                                                                            ${
+                                                                                                                                                                        book.status === "Available"
+                                                                                                                                                                                                ?
+                                                                                                                                                                                                                        `<button class="issue-btn" onclick="issueBook(${book.id})">Issue</button>`
+                                                                                                                                                                                                                                                :
+                                                                                                                                                                                                                                                                        `<button class="return-btn" onclick="returnBook(${book.id})">Return</button>`
+                                                                                                                                            }
+
+                                                                                                                                                                <button class="delete-btn" onclick="deleteBook(${book.id})">Delete</button>
+                                                                                                                                                                                </td>
+                                                                                                                                                                                            </tr>
+                                                                                                                                                                                                    `;
+
+                                                                                                                                                                                                            bookList.innerHTML += row;
+                });
+}
+
+// Issue Book
+function issueBook(bookId) {
+
+        books.forEach((book) => {
+                    if (book.id === bookId) {
+                                    book.status = "Issued";
+                    }
+        });
+
+            displayBooks();
+}
+
+// Return Book
+function returnBook(bookId) {
+
+        books.forEach((book) => {
+                    if (book.id === bookId) {
+                                    book.status = "Available";
+                    }
+        });
+
+            displayBooks();
+}
+
+// Delete Book
+function deleteBook(bookId) {
+
+        books = books.filter((book) => book.id !== bookId);
+
+            displayBooks();
+}
+
+// Search Book
+function searchBook() {
+
+        let searchText = document.getElementById("searchBook").value.toLowerCase();
+
+            let filteredBooks = books.filter((book) =>
+                    book.name.toLowerCase().includes(searchText)
+                        );
+
+                            displayBooks(filteredBooks);
+}
+}
+}
+                    }
+        })
+}
+                    }
+        })
+}
+                                                                                                                                            }
+                })
+}
+                    }
+                }
+}
